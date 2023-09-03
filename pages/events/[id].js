@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-const SelectedProjectPage = () => {
+const SelectedEventPage = () => {
   const router = useRouter();
 
   const {
@@ -13,4 +13,4 @@ const SelectedProjectPage = () => {
   );
 };
 
-export default SelectedProjectPage;
+export default SelectedEventPage;
