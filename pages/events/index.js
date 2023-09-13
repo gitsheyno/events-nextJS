@@ -1,22 +1,12 @@
 import Link from "next/link";
+import { getAllEvents } from "@/dummy-data";
+import EventList from "@/components/events/event-list";
 
-const events = [
-  { id: "e1", title: "event-a" },
-  { id: "e2", title: "event-b" },
-  { id: "e3", title: "event-c" },
-  { id: "e4", title: "event-d" },
-];
 const EventsPage = () => {
+  const allEvents = getAllEvents();
   return (
     <div>
-      <h1>events page</h1>
-      <ul>
-        {events.map((events) => (
-          <Link key={events.id} href={`/events/${events.id}`}>
-            {events.title}
-          </Link>
-        ))}
-      </ul>
+      <EventList items={allEvents} />
     </div>
   );
 };
