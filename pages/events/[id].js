@@ -4,7 +4,6 @@ import { getEventById } from "@/dummy-data";
 import EventSummary from "@/components/events/event-detail/event-summary";
 import EventContent from "@/components/events/event-detail/event-content";
 import EventLogistics from "@/components/events/event-detail/event-logistics";
-import LogisticsItem from "@/components/events/event-detail/logistics-item";
 const SelectedEventPage = () => {
   const router = useRouter();
   // const {
@@ -19,7 +18,6 @@ const SelectedEventPage = () => {
 
   const { title, description, location, image, date } = fetchedEventsById;
 
-  console.log(fetchedEventsById.image);
   return (
     <>
       <EventSummary title={title} />
