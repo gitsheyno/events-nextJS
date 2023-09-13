@@ -6,9 +6,7 @@ import EventContent from "@/components/events/event-detail/event-content";
 import EventLogistics from "@/components/events/event-detail/event-logistics";
 const SelectedEventPage = () => {
   const router = useRouter();
-  // const {
-  //   query: { id: content },
-  // } = router;
+
   const { query } = router;
 
   const fetchedEventsById = getEventById(query.id);
