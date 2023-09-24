@@ -1,6 +1,4 @@
 const EventDetail = ({ title, img, description }) => {
-  console.log(img, "9");
-  console.log(title);
   return (
     <div>
       <img src={img} alt={title} />

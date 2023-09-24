@@ -6,6 +6,7 @@ import AddressIcon from "../icons/address-icon";
 import ArrowRightIcon from "../icons/arrow-right-icon";
 
 const EventItem = (props) => {
+  console.log(props);
   const { title, image, location, id, date } = props;
 
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
