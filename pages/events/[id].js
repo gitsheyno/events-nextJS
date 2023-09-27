@@ -1,19 +1,8 @@
-import { useRouter } from "next/router";
-import { getEventById } from "@/dummy-data";
-
+import { getEventById, getAllEvents } from "../../helpers/api-utils";
 import EventSummary from "@/components/events/event-detail/event-summary";
 import EventContent from "@/components/events/event-detail/event-content";
 import EventLogistics from "@/components/events/event-detail/event-logistics";
-const SelectedEventPage = () => {
-  const router = useRouter();
-
-  const { query } = router;
-
-  const fetchedEventsById = getEventById(query.id);
-  if (!fetchedEventsById) {
-    return <p>Error</p>;
-  }
-
+const SelectedEventPage = ({ fetchedEventsById }) => {
   const { title, description, location, image, date } = fetchedEventsById;
 
   return (
@@ -31,5 +20,24 @@ const SelectedEventPage = () => {
     </>
   );
 };
+export async function getStaticProps(context) {
+  const eventID = context.params.id;
 
+  const event = await getEventById(eventID);
+
+  return {
+    props: {
+      fetchedEventsById: event,
+    },
+  };
+}
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+  const paths = events.map((path) => ({ params: { id: path.id } }));
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
+}
 export default SelectedEventPage;
