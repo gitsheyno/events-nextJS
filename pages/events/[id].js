@@ -29,6 +29,7 @@ export async function getStaticProps(context) {
     props: {
       fetchedEventsById: event,
     },
+    revalidate: 30,
   };
 }
 export async function getStaticPaths() {

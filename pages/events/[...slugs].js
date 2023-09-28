@@ -1,34 +1,15 @@
 import { useRouter } from "next/router";
-import { getFilteredEvents } from "@/dummy-data";
+
+import { getFilteredEvents } from "@/helpers/api-utils";
 import EventList from "@/components/events/event-list";
 
-const FilteredEvent = () => {
-  const router = useRouter();
-
-  // console.log("ok");
-
-  const filteredData = router.query.slugs;
-  if (!filteredData) {
-    return <p className="center">..Loading...</p>;
+const FilteredEvent = ({ events, hasError }) => {
+  console.log(events);
+  if (hasError) {
+    return <p className="center">invalid,filter</p>;
   }
 
-  const [year, month] = filteredData;
-
-  const numYear = +year;
-  const numMonth = +month;
-
-  if (
-    isNaN(numMonth) ||
-    isNaN(numYear) ||
-    numYear > 2030 ||
-    numYear < 2021 ||
-    numMonth < 1 ||
-    numMonth > 12
-  ) {
-    return <p>please adjust valied url</p>;
-  }
-
-  const getFilteredEvent = getFilteredEvents({ year: +year, month: +month });
+  const getFilteredEvent = events;
 
   if (!getFilteredEvent || getFilteredEvent.length === 0) {
     return <p>no event found for choseen date</p>;
@@ -41,4 +22,47 @@ const FilteredEvent = () => {
   );
 };
 
+export async function getServerSideProps(context) {
+  const { params } = context;
+
+  const filterData = params.slugs;
+
+  const filteredYear = filterData[0];
+  const filteredMonth = filterData[1];
+
+  const numYear = +filteredYear;
+  const numMonth = +filteredMonth;
+
+  if (
+    isNaN(numYear) ||
+    isNaN(numMonth) ||
+    numYear > 2030 ||
+    numYear < 2021 ||
+    numMonth < 1 ||
+    numMonth > 12
+  ) {
+    return {
+      props: { hasError: true },
+      // notFound: true,
+      // redirect: {
+      //   destination: '/error'
+      // }
+    };
+  }
+
+  const filteredEvents = await getFilteredEvents({
+    year: numYear,
+    month: numMonth,
+  });
+
+  return {
+    props: {
+      events: filteredEvents,
+      date: {
+        year: numYear,
+        month: numMonth,
+      },
+    },
+  };
+}
 export default FilteredEvent;

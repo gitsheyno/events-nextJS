@@ -24,6 +24,7 @@ export async function getStaticProps() {
     props: {
       allEvents: data,
     },
+    revalidate: 60,
   };
 }
 export default EventsPage;
