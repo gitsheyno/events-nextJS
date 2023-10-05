@@ -3,8 +3,9 @@ import EventSummary from "@/components/events/event-detail/event-summary";
 import EventContent from "@/components/events/event-detail/event-content";
 import EventLogistics from "@/components/events/event-detail/event-logistics";
 import Head from "next/head";
+import Comments from "@/components/input/comments";
 const SelectedEventPage = ({ fetchedEventsById }) => {
-  const { title, description, location, image, date } = fetchedEventsById;
+  const { title, description, location, image, date, id } = fetchedEventsById;
 
   return (
     <>
@@ -25,6 +26,7 @@ const SelectedEventPage = ({ fetchedEventsById }) => {
       <EventContent>
         <p>{description}</p>
       </EventContent>
+      <Comments eventId={id} />
     </>
   );
 };
