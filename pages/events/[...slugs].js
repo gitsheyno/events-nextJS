@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-
+import Head from "next/head";
 import { getFilteredEvents } from "@/helpers/api-utils";
 import EventList from "@/components/events/event-list";
 
 const FilteredEvent = ({ events, hasError }) => {
-  console.log(events);
   if (hasError) {
     return <p className="center">invalid,filter</p>;
   }
@@ -16,9 +15,18 @@ const FilteredEvent = ({ events, hasError }) => {
   }
 
   return (
-    <div>
-      <EventList items={getFilteredEvent} />
-    </div>
+    <>
+      <Head>
+        <title>Filtered event</title>
+        <meta
+          name="description"
+          content={`All Events for ${numMonth}/${numYear}`}
+        />
+      </Head>
+      <div>
+        <EventList items={getFilteredEvent} />
+      </div>
+    </>
   );
 };
 

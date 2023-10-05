@@ -1,9 +1,17 @@
 import { getFeaturedEvents } from "../helpers/api-utils";
 import EventList from "@/components/events/event-list";
+import Head from "next/head";
 const HomePage = ({ events }) => {
   console.log(events);
   return (
     <div>
+      <Head>
+        <title>Events</title>
+        <meta
+          name="description"
+          content="find a lot of great events that allow you evol ve"
+        />
+      </Head>
       <EventList items={events} />
     </div>
   );

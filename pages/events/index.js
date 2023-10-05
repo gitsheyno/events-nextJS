@@ -2,7 +2,7 @@ import EventList from "@/components/events/event-list";
 import EventSearch from "@/components/events/event-search";
 import { useRouter } from "next/router";
 import { getAllEvents } from "@/helpers/api-utils";
-
+import Head from "next/head";
 const EventsPage = ({ allEvents }) => {
   const router = useRouter();
   const handlerDate = (month, year) => {
@@ -10,10 +10,19 @@ const EventsPage = ({ allEvents }) => {
   };
 
   return (
-    <div>
-      <EventSearch handlerDate={handlerDate} />
-      <EventList items={allEvents} />
-    </div>
+    <>
+      <Head>
+        <title>All Events</title>
+        <meta
+          name="description"
+          content="find a lot of great events that allow you evol ve"
+        />{" "}
+      </Head>
+      <div>
+        <EventSearch handlerDate={handlerDate} />
+        <EventList items={allEvents} />
+      </div>
+    </>
   );
 };
 
