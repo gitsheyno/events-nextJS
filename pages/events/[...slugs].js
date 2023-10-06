@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { getFilteredEvents } from "@/helpers/api-utils";
-import EventList from "@/components/events/event-list";
+import { getFilteredEvents } from "../../helpers/api-utils";
+import EventList from "../../components/events/event-list";
 
 const FilteredEvent = ({ events, hasError }) => {
   if (hasError) {

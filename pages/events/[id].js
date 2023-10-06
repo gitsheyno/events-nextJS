@@ -1,9 +1,9 @@
 import { getEventById, getAllEvents } from "../../helpers/api-utils";
-import EventSummary from "@/components/events/event-detail/event-summary";
-import EventContent from "@/components/events/event-detail/event-content";
-import EventLogistics from "@/components/events/event-detail/event-logistics";
+import EventSummary from "../../components/events/event-detail/event-summary";
+import EventContent from "../../components/events/event-detail/event-content";
+import EventLogistics from "../../components/events/event-detail/event-logistics";
 import Head from "next/head";
-import Comments from "@/components/input/comments";
+import Comments from "../../components/input/comments";
 const SelectedEventPage = ({ fetchedEventsById }) => {
   const { title, description, location, image, date, id } = fetchedEventsById;
 

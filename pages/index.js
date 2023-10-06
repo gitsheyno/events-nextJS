@@ -1,7 +1,7 @@
 import { getFeaturedEvents } from "../helpers/api-utils";
-import EventList from "@/components/events/event-list";
+import EventList from "../components/events/event-list";
 import Head from "next/head";
-import NewsletterRegistration from "@/components/input/newsletter-registration";
+import NewsletterRegistration from "../components/input/newsletter-registration";
 const HomePage = ({ events }) => {
   console.log(events);
   return (
