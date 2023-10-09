@@ -1,4 +1,6 @@
-export default function helper(req, res) {
+import { MongoClient } from "mongodb";
+
+export default async function handler(req, res) {
   if (req.method === "POST") {
     const email = req.body.email;
 
@@ -6,7 +8,17 @@ export default function helper(req, res) {
       res.status(401).json({ message: "bad input" });
       return;
     }
-    console.log(email);
-    res.status(201).json({ message: "succesfull" });
+
+    const client = await MongoClient.connect(
+      "mongodb+srv://events:1f2swjYA2LySFf0Z@cluster0.fqkrxtu.mongodb.net/newsletter?retryWrites=true&w=majority"
+    );
+
+    const db = client.db();
+
+    await db.collection("emails").insertOne({ email: email });
+
+    client.close();
+
+    res.status(201).json({ message: "successful" });
   }
 }
