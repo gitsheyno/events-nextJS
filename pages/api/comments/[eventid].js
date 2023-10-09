@@ -1,5 +1,9 @@
-export default function helper(req, res) {
+import { MongoClient } from "mongodb";
+export default async function helper(req, res) {
   const eventID = req.query.eventid;
+  const client = await MongoClient.connect(
+    "mongodb+srv://events:1f2swjYA2LySFf0Z@cluster0.fqkrxtu.mongodb.net/events?retryWrites=true&w=majority"
+  );
 
   if (req.method === "POST") {
     const { email, name, text } = req.body;
@@ -8,24 +12,34 @@ export default function helper(req, res) {
       res.status(401).json({ message: "invalid" });
       return;
     }
-    const id = new Date().toISOString();
 
     const newComment = {
-      id,
       name,
       email,
       text,
+      eventID,
     };
+    const db = client.db();
+
+    const res = await db.collection("comments").insertOne(newComment);
+
+    newComment.id = res.insertedId;
+
     res.status(201).json({ message: "comment added", comment: newComment });
   }
 
   if (req.method === "GET") {
-    const dummy = [
-      { id: "c1", name: "shayan", text: "text-1", comment: "comment-1" },
-      { id: "c2", name: "shayan", text: "text-2", comment: "comment-2" },
-      { id: "c3", name: "shayan", text: "text-3", comment: "comment-3" },
-    ];
+    const db = client.db();
 
-    res.status(201).json({ data: dummy });
+    const allDocs = await db
+      .collection("comments")
+      .find()
+      .sort({ _id: -1 })
+      .toArray();
+
+    console.log(allDocs);
+    res.status(200).json({ data: allDocs });
   }
+
+  client.close();
 }
