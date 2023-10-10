@@ -16,7 +16,7 @@ const EventsPage = ({ allEvents }) => {
         <meta
           name="description"
           content="find a lot of great events that allow you evol ve"
-        />{" "}
+        />
       </Head>
       <div>
         <EventSearch handlerDate={handlerDate} />
