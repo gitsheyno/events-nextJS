@@ -2,6 +2,7 @@ import MainHeader from "./main-header";
 import Notification from "../UI/notifications";
 import NotificationContext from "../../store/notification-context";
 import { useContext } from "react";
+import { Main } from "next/document";
 const Layout = ({ children }) => {
   const ctx = useContext(NotificationContext);
 
